@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.tencent.wcdb:room:1.0.8@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b9bcb543476d852ba07b00ed8d78fc33/jetified-room-1.0.8/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b9bcb543476d852ba07b00ed8d78fc33/jetified-room-1.0.8/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b9bcb543476d852ba07b00ed8d78fc33/jetified-room-1.0.8/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.wcdb/room/1.0.8/e4820fcc738eb643cc4de032df2d6f91813e77ce/room-1.0.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.wcdb/room/1.0.8/c6e527dedc6007377eabcb7da536ef1c13f112c1/room-1.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: com.tencent.wcdb:wcdb-android:1.0.8@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8c6c4ac1bbdd984763040f26f00063ec/jetified-wcdb-android-1.0.8/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/641cd8119412db8179ef870c9bad235b/jetified-wcdb-android-1.0.8/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8c6c4ac1bbdd984763040f26f00063ec/jetified-wcdb-android-1.0.8/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8c6c4ac1bbdd984763040f26f00063ec/jetified-wcdb-android-1.0.8/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.wcdb/wcdb-android/1.0.8/d09bd92c5011be5828d441d8991b281585d6c312/wcdb-android-1.0.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.wcdb/wcdb-android/1.0.8/616601d36330f2ea0891e33d4008859c3e1a0cde/wcdb-android-1.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

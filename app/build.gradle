@@ -1,0 +1,135 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+def config = rootProject.ext.android
+def library = rootProject.ext.dependencies
+
+android {
+    compileSdkVersion config.compileSdkVersion
+
+    defaultConfig {
+        applicationId config.applicationId
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
+        multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName(),
+                             "room.schemaLocation":"$projectDir/schemas".toString(),
+                             "room.incremental":"true",
+                             "room.expandProjection":"true"
+                            ]
+            }
+        }
+
+//        ndk {
+//            //选择要添加的对应 cpu 类型的 .so 库。
+//            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+//            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+//        }
+
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    dexOptions {
+        jumboMode = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+
+        exclude 'META-INF/NOTICE'
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+
+
+dependencies {
+    def room_version = "2.3.0"
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+
+
+    // wcdb数据库和room数据库组合使用
+    implementation 'com.tencent.wcdb:wcdb-android:1.0.8'
+    implementation 'com.tencent.wcdb:room:1.0.8'
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+
+    implementation "cn.bingoogolapple:bga-baseadapter:2.0.0@aar"
+    implementation 'com.google.android.material:material:1.1.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation library["androidx-appcompat"]
+   // implementation library["androidx-core"]
+    implementation library["androidx-constraint"]
+    implementation library["androidx-recyclerview"]
+    implementation library["androidx-multidex"]
+    implementation library["androidx-annotation"]
+    implementation library["rxjava"]
+    implementation library["rxandroid"]
+
+    implementation library["butterknife"]
+    kapt library["butterknife-apt"]
+
+    implementation library["baseadapterhelper"]
+    implementation library["SmartRefreshLayout"]
+    implementation library["SmartRefreshHeader"]
+
+
+
+
+}
+
+
+
+
+
