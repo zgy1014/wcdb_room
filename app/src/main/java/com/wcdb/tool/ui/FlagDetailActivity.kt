@@ -45,11 +45,9 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
 
         BusProvider.getBus().subscribe(context,
             RxBus.Callback<ModelInfo> { modelInfo ->
-
                 if (modelInfo.updateFlag) {
                     showSonFlagList()
                 }
-
             })
 
     }
