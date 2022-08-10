@@ -2,33 +2,61 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:background="@color/color_white"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
         android:layout_height="match_parent">
-
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_50dp">
+
 
             <TextView
-                android:textStyle="bold"
-                android:text="ffffff"
-                android:textSize="@dimen/dimen_30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="WCDB"
                 android:textColor="@color/color_333333"
+                android:textSize="@dimen/dimen_18sp"
+                android:textStyle="bold" />
+
+            <ImageView
                 android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:id="@+id/iv_create_flag"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/nav_button_add" />
+
         </RelativeLayout>
 
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_white"
+                android:paddingTop="@dimen/dimen_6dp"
+                android:overScrollMode="never"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 
 
-
-
 </RelativeLayout>
+
