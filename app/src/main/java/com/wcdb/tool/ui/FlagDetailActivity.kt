@@ -31,7 +31,6 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStatusBlack()
-
         val view =  LayoutInflater.from(this).inflate(R.layout.activity_flag_detail, null)
         setContentView(view)
         database = AppDataUtils.initRooms(this)
