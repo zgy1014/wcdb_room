@@ -5,18 +5,19 @@ import android.os.Handler
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
+import com.blankj.rxbus.RxBus
 import com.wcdb.tool.R
-import com.wcdb.tool.constant.SimpleListener
 import com.wcdb.tool.dao.AppDataUtils
 import com.wcdb.tool.dao.AppDatabase
 import com.wcdb.tool.dao.FlagInfoDao
 import com.wcdb.tool.dao.SubFlagModelDao
 import com.wcdb.tool.dialog.UICreateSonFlagDialog
+import com.wcdb.tool.event.BusProvider
+import com.wcdb.tool.model.ModelInfo
 import com.wcdb.tool.model.SmallTable
 import com.wcdb.tool.util.AppUtil
 import com.wcdb.tool.util.ToastUtils
 import com.wcdb.tool.util.ViewClickUtils
-
 import kotlinx.android.synthetic.main.activity_son_flag_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,7 +26,6 @@ class SonFlagDetailActivity : BaseActivity(), View.OnClickListener {
 
     private var subId: String? = null
     private var flagId: String? = null
-    private var status: String? = null
 
     private var database: AppDatabase? = null
     private  var subFlagDao : SubFlagModelDao? =null
@@ -34,15 +34,14 @@ class SonFlagDetailActivity : BaseActivity(), View.OnClickListener {
     private var subFlagModel: SmallTable? = null
     var cal: Calendar? = null
 
-    private  var day : Long? =0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStatusBlack()
+
         val view =  LayoutInflater.from(this).inflate(R.layout.activity_son_flag_detail, null)
         setContentView(view)
 
         subId = intent.getStringExtra("subId")
-        status = intent.getStringExtra("status")
 
         database = AppDataUtils.initRoom(context)
         ViewClickUtils.setViewClick(this, tvBack)
@@ -52,6 +51,14 @@ class SonFlagDetailActivity : BaseActivity(), View.OnClickListener {
         cal = Calendar.getInstance()
         cal!!.time =  Date()
         initDataShow(subId!!)
+
+        BusProvider.getBus().subscribe(context,
+            RxBus.Callback<ModelInfo> { modelInfo ->
+                if (modelInfo != null && modelInfo.updateFlag) {
+                    subId = modelInfo.subId
+                    initDataShow(modelInfo.subId)
+                }
+            })
     }
 
 
@@ -87,10 +94,8 @@ class SonFlagDetailActivity : BaseActivity(), View.OnClickListener {
             }
 
             tvWeekDate.text = subFlagModel!!.repeatTime
-
         }
     }
-
 
 
     override fun onClick(v: View?) {
@@ -113,7 +118,6 @@ class SonFlagDetailActivity : BaseActivity(), View.OnClickListener {
     }
 
     private var  createSonFlagDialog : UICreateSonFlagDialog? =null
-
     private val mHandler = Handler()
 
     private var  updateStates : Boolean = false
@@ -124,20 +128,8 @@ class SonFlagDetailActivity : BaseActivity(), View.OnClickListener {
      */
     private fun initCreateSonFalgView(flagId: String) {
 
-     //   if (createSonFlagDialog == null) {
-            createSonFlagDialog = UICreateSonFlagDialog(context, flagId, database)
-            createSonFlagDialog!!.setSimpleListener(object : SimpleListener<SmallTable>() {
-                override fun onClick(subFlagModel: SmallTable) {
-                    subFlagModels = subFlagModel
-                    updateStates = false
-                    if (subFlagModel.status == "提前完成") {
-                        updateStates = true
-                        createSonFlagDialog!!.dismiss()
-                    }
-                }
-            })
-   //     }
-          createSonFlagDialog!!.setOnKeyBackListener(false)
+        createSonFlagDialog = UICreateSonFlagDialog(context, flagId, database)
+        createSonFlagDialog!!.setOnKeyBackListener(false)
         createSonFlagDialog!!.updateFlag(subFlagModel!!.subId, flagId)
         createSonFlagDialog!!.show()
 
@@ -176,14 +168,13 @@ class SonFlagDetailActivity : BaseActivity(), View.OnClickListener {
 
     }
 
-
-
-
-
     private fun deleteFlag() {
         if(subFlagDao !=null){
             subFlagDao!!.delete(subFlagModel)
             ToastUtils.showMessage(context, "删除成功")
+            var modelInfo = ModelInfo()
+            modelInfo.updateFlag = true
+            BusProvider.getBus().post(modelInfo)
             finish()
         }
     }

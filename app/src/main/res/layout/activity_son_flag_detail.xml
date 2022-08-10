@@ -5,6 +5,7 @@
     android:layout_centerHorizontal="true"
     android:background="@color/color_white"
     android:layout_centerVertical="true"
+    android:fitsSystemWindows="true"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -47,8 +48,6 @@
 
         </RelativeLayout>
     </RelativeLayout>
-
-
 
     <ScrollView
         android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.rxbus.RxBus
 import com.wcdb.tool.R
 import com.wcdb.tool.adapter.FlagAdapter
 import com.wcdb.tool.constant.SimpleListener
@@ -13,7 +14,9 @@ import com.wcdb.tool.dao.AppDataUtils
 import com.wcdb.tool.dao.AppDatabase
 import com.wcdb.tool.dialog.UICreateFlagDialog
 import com.wcdb.tool.dialog.UICreateSonFlagDialog
+import com.wcdb.tool.event.BusProvider
 import com.wcdb.tool.model.FlagTable
+import com.wcdb.tool.model.ModelInfo
 import com.wcdb.tool.util.AppUtil
 import com.wcdb.tool.util.ViewClickUtils
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,6 +27,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStatusBlack()
         val view =  LayoutInflater.from(this).inflate(R.layout.activity_main, null)
         setContentView(view)
         database = AppDataUtils.initRooms(this)
@@ -35,6 +39,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private fun showTopData() {
         ViewClickUtils.setViewClick(this, iv_create_flag)
         initDataShow()
+        BusProvider.getBus().subscribe(context,
+            RxBus.Callback<ModelInfo> { modelInfo ->
+                if (modelInfo.updateFlag) {
+                    initDataShow()
+                }
+            })
     }
 
 

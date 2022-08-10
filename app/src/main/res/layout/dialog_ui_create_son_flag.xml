@@ -63,14 +63,14 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:background="@color/color_white"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/linearEditText"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-                <androidx.appcompat.widget.AppCompatEditText
+                <EditText
                     android:id="@+id/ed_flag_titile"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_88dp"
@@ -256,7 +256,6 @@
 
 
         </LinearLayout>
-
 
     </LinearLayout>
 

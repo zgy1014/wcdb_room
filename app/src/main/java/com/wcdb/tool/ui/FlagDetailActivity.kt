@@ -1,11 +1,13 @@
 package com.wcdb.tool.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.rxbus.RxBus
 import com.wcdb.tool.R
 import com.wcdb.tool.adapter.SubFlagAdapter
 import com.wcdb.tool.constant.SimpleListener
@@ -15,7 +17,9 @@ import com.wcdb.tool.dao.FlagInfoDao
 import com.wcdb.tool.dao.SubFlagModelDao
 import com.wcdb.tool.dialog.UICreateFlagDialog
 import com.wcdb.tool.dialog.UICreateSonFlagDialog
+import com.wcdb.tool.event.BusProvider
 import com.wcdb.tool.model.FlagTable
+import com.wcdb.tool.model.ModelInfo
 import com.wcdb.tool.model.SmallTable
 import com.wcdb.tool.util.AppUtil
 import com.wcdb.tool.util.ToastUtils
@@ -26,6 +30,8 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStatusBlack()
+
         val view =  LayoutInflater.from(this).inflate(R.layout.activity_flag_detail, null)
         setContentView(view)
         database = AppDataUtils.initRooms(this)
@@ -37,6 +43,16 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
         ViewClickUtils.setViewClick(this, btn_create_son_flag)
         ViewClickUtils.setViewClick(this, btn_edit_flag)
         showSonFlagList()
+
+        BusProvider.getBus().subscribe(context,
+            RxBus.Callback<ModelInfo> { modelInfo ->
+
+                if (modelInfo.updateFlag) {
+                    showSonFlagList()
+                }
+
+            })
+
     }
 
 
@@ -76,7 +92,15 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
                 btn_create_son_flag.visibility = View.GONE
                 linearLayoutManager = LinearLayoutManager(context)
                 mRecyclerView.layoutManager = linearLayoutManager
-                adapter = SubFlagAdapter(subFlagLists, flagInfo!!.color, 1)
+                adapter = SubFlagAdapter(subFlagLists)
+                adapter!!.setListener(object : SimpleListener<Int>() {
+                    override fun onClick(index: Int) {
+                        val intent = Intent(context, SonFlagDetailActivity::class.java)
+                        intent.putExtra("subId", subFlagLists[index].subId)
+                        startActivity(intent)
+                    }
+
+                })
                 mRecyclerView.adapter = adapter
             }else{
                 ivSonFlag.visibility = View.GONE
@@ -86,7 +110,6 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
         }
 
     }
-
 
 
     override fun onClick(v: View?) {
@@ -121,17 +144,12 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
      */
     private fun initCreateFalgView() {
 
-//        if (createFlagDialog == null) {
             createFlagDialog = UICreateFlagDialog(context, database)
             createFlagDialog!!.setSimpleListener(object : SimpleListener<Int>() {
                 override fun onClick(type: String) {
-//                    if (type == "save") {
-//                        initDataShow()
-//                        createFlagDialog!!.dismiss()
-//                    }
+
                 }
             })
-//        }
 
         if(!TextUtils.isEmpty(flagId)){
             createFlagDialog!!.updateFlag(flagId)
@@ -150,15 +168,12 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
      * 创建子目标
      */
     private fun initCreateSonFalgView() {
-
-//        if (createSonFlagDialog == null) {
             createSonFlagDialog = UICreateSonFlagDialog(context, flagId, database)
             createSonFlagDialog!!.setSimpleListener(object : SimpleListener<Int>() {
                 override fun onClick(type: String) {
 
                 }
             })
-//        }
         createSonFlagDialog!!.setOnKeyBackListener(false)
 
         createSonFlagDialog!!.show()
@@ -166,7 +181,6 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
         mHandler.postDelayed(Runnable {
             AppUtil.showSoftInput(context)
         }, 500)
-
 
     }
 
@@ -176,10 +190,9 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
              flagDao!!.delete(flagInfo)
              subFlagDao!!.deleteAllByFId(flagInfo!!.flagId)
             ToastUtils.showMessage(context, "删除成功")
-//            var modelInfo = ModelInfo()
-//            modelInfo.updateFlag = true
-//            modelInfo.updateCalendar2 = true
-//            BusProvider.getBus().post(modelInfo)
+            var modelInfo = ModelInfo()
+            modelInfo.updateFlag = true
+            BusProvider.getBus().post(modelInfo)
 
             finish()
         }

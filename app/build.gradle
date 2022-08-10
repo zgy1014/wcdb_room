@@ -114,6 +114,8 @@ dependencies {
     implementation library["androidx-recyclerview"]
     implementation library["androidx-multidex"]
     implementation library["androidx-annotation"]
+    implementation library["rxbus"]
+
     implementation library["rxjava"]
     implementation library["rxandroid"]
 

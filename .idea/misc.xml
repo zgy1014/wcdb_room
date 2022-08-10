@@ -4,7 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/shape_radius_16_half_f7f7_bg.xml" value="0.245" />
+        <entry key="app/src/main/res/layout/activity_flag_detail.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20460358056265984" />
+        <entry key="app/src/main/res/layout/activity_son_flag_detail.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/layout/dialog_ui_create_flag.xml" value="0.18055555555555555" />
+        <entry key="app/src/main/res/layout/dialog_ui_create_son_flag.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/layout/item_sub_flag.xml" value="0.23020833333333332" />
       </map>
     </option>
   </component>

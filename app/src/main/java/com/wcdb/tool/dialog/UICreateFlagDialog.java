@@ -11,24 +11,24 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.recyclerview.widget.RecyclerView;
 import com.wcdb.tool.R;
 import com.wcdb.tool.constant.ChineseInputFilter;
 import com.wcdb.tool.dao.AppDatabase;
 import com.wcdb.tool.dao.FlagInfoDao;
+import com.wcdb.tool.event.BusProvider;
 import com.wcdb.tool.model.FlagTable;
+import com.wcdb.tool.model.ModelInfo;
 import com.wcdb.tool.util.AppUtil;
-import java.util.List;
 import butterknife.BindView;
 
 
 public class UICreateFlagDialog extends DialogHelper {
 
     @BindView(R.id.ed_flag_titile)
-    AppCompatEditText ed_flag_titile;
+    EditText ed_flag_titile;
 
     @BindView(R.id.tvBack)
     TextView tvBack;
@@ -40,18 +40,12 @@ public class UICreateFlagDialog extends DialogHelper {
     TextView tvSave;
 
     @BindView(R.id.ed_flag_content)
-    AppCompatEditText ed_flag_content;
-
-    @BindView(R.id.mRecyclerView)
-    RecyclerView mRecyclerView;
+    EditText ed_flag_content;
 
     @BindView(R.id.linearEditText)
     LinearLayout linearEditText;
     @BindView(R.id.mLineaCreateFlag)
     LinearLayout mLineaCreateFlag;
-
-
-    List<Integer> colorList;
 
     private int selectPosition = 0;
 
@@ -277,7 +271,7 @@ public class UICreateFlagDialog extends DialogHelper {
             }
             return;
         }
-
+        ModelInfo modelInfo = new ModelInfo();
         flagInfo.subTitle = content;
         flagInfo.title = title;
         flagInfo.color = selectPosition;
@@ -291,7 +285,8 @@ public class UICreateFlagDialog extends DialogHelper {
         }else {
             infoDao.update(flagInfo);
         }
-
+        modelInfo.updateFlag = true;
+        BusProvider.getBus().post(modelInfo);
         dismiss();
     }
 

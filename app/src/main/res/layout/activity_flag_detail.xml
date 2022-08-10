@@ -6,6 +6,7 @@
     android:background="@color/color_white"
     android:layout_centerVertical="true"
     android:gravity="center_horizontal"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout

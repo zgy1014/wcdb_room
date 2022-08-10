@@ -16,6 +16,8 @@ import com.wcdb.tool.R;
 import com.wcdb.tool.constant.ChineseInputFilter;
 import com.wcdb.tool.dao.AppDatabase;
 import com.wcdb.tool.dao.SubFlagModelDao;
+import com.wcdb.tool.event.BusProvider;
+import com.wcdb.tool.model.ModelInfo;
 import com.wcdb.tool.model.SmallTable;
 import com.wcdb.tool.util.AppUtil;
 import java.text.SimpleDateFormat;
@@ -137,8 +139,8 @@ public class UICreateSonFlagDialog extends DialogHelper {
         mContext.getWindow().setStatusBarColor(mContext.getResources().getColor(R.color.color_white));
         subFlagModel.repeatTime = "19:00-20:00";
         ed_flag_titile.setText("");
-        tvFlagStartDate.setText("今天");
-        tvFlagEndDate.setText("明天");
+        tvFlagStartDate.setText(subFlagModel.startTime);
+        tvFlagEndDate.setText(subFlagModel.endTime);
         tvWeekDate.setText(subFlagModel.repeatTime);
         tvWeek.setText(subFlagModel.repeatDay);
         tvWeek.setTextColor(Color.parseColor("#333333"));
@@ -266,12 +268,19 @@ public class UICreateSonFlagDialog extends DialogHelper {
     private  void insertDayDBTable(String subIds){
         if(subFlagModelDao !=null){
             if(TextUtils.isEmpty(subIds)){
-                subFlagModel.subId = eventId;
+                int random = (int)(Math.random()*100);
+                subIds = Long.toString(System.currentTimeMillis()) +random +"";
+                subFlagModel.subId = subIds;
                 subFlagModelDao.insert(subFlagModel);
             }else {
-                subFlagModel.subId = eventId;
                 subFlagModelDao.update(subFlagModel);
             }
+
+            ModelInfo modelInfo = new ModelInfo();
+            modelInfo.updateFlag = true;
+            modelInfo.subId = subIds;
+            BusProvider.getBus().post(modelInfo);
+
         }
     }
 

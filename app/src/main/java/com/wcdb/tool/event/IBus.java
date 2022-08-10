@@ -1,0 +1,22 @@
+package com.wcdb.tool.event;
+
+/**
+ * Created by jack on 2019/4/22.
+ */
+
+public interface IBus {
+
+    void register(Object object);
+
+    void unregister(Object object);
+
+    void post(AbsEvent event);
+
+    void postSticky(AbsEvent event);
+
+
+    abstract class AbsEvent {
+        public abstract int getTag();
+    }
+
+}

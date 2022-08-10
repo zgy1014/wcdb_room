@@ -59,7 +59,6 @@
         </RelativeLayout>
 
 
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -71,7 +70,8 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-                <androidx.appcompat.widget.AppCompatEditText
+
+                <EditText
                     android:id="@+id/ed_flag_titile"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_88dp"
@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_120dp">
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <EditText
                         android:id="@+id/ed_flag_content"
                         android:layout_width="match_parent"
                         android:background="@color/color_white"
@@ -117,27 +117,8 @@
                         android:layout_height="match_parent"/>
                 </RelativeLayout>
 
-            <TextView
-                android:text="颜色"
-                android:textStyle="bold"
-                android:textColor="@color/color_333333"
-                android:layout_marginLeft="@dimen/dimen_15dp"
-                android:layout_marginTop="@dimen/dimen_40dp"
-                android:textSize="@dimen/dimen_16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mRecyclerView"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_marginLeft="@dimen/dimen_3dp"
-                android:layout_marginRight="@dimen/dimen_3dp"
-                android:layout_height="wrap_content"/>
 
         </LinearLayout>
-
 
     </LinearLayout>
 

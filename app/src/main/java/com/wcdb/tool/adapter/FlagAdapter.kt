@@ -1,5 +1,6 @@
 package com.wcdb.tool.adapter
 
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -13,6 +14,7 @@ import com.wcdb.tool.constant.SimpleListener
 import com.wcdb.tool.dao.AppDatabase
 import com.wcdb.tool.dao.SubFlagModelDao
 import com.wcdb.tool.model.FlagTable
+import com.wcdb.tool.ui.SonFlagDetailActivity
 
 
 class FlagAdapter(lists: List<FlagTable>) :
@@ -54,15 +56,22 @@ class FlagAdapter(lists: List<FlagTable>) :
         }
         if(subFlagModelDao !=null){
             //提前完成的不需要展示在flag列表
-             var subFlagLists = subFlagModelDao!!.getAllByFlagIdForProgress(item.flagId,1.0f,"提前完成")
+             var subFlagLists = subFlagModelDao!!.getAllByFlagId(item.flagId)
             linearLayoutManager = LinearLayoutManager(mContext)
             mRecyclerView?.layoutManager = linearLayoutManager
-            adapter = SubFlagAdapter(subFlagLists,item.color,0)
+            adapter = SubFlagAdapter(subFlagLists)
+            adapter!!.setListener(object : SimpleListener<Int>() {
+                override fun onClick(index: Int) {
+                    val intent = Intent(mContext, SonFlagDetailActivity::class.java)
+                    intent.putExtra("subId", subFlagLists[index].subId)
+                    mContext.startActivity(intent)
+                }
+
+            })
             mRecyclerView?.adapter = adapter
 
         }
         flagContent?.text = item.title
-      //  var position = helper!!.adapterPosition
         ivSonFlag!!.setOnClickListener {
             if (listener !=null){
                 listener!!.onClick(item.flagId)
