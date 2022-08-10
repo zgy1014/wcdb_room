@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/iv_flag_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dimen_16dp"
+    android:layout_marginRight="@dimen/dimen_16dp"
+    android:layout_marginBottom="@dimen/dimen_6dp"
+    android:layout_marginTop="@dimen/dimen_6dp"
+    android:background="@drawable/shape_radius_16_whitle"
+    android:elevation="4dp"
+    android:outlineProvider="background"
+    android:outlineSpotShadowColor="#29000000"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:layout_marginLeft="@dimen/dimen_16dp"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/flagDetail"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/flagContent"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="@dimen/dimen_18sp"
+                    android:textColor="@color/color_333333"
+                    android:layout_width="@dimen/dimen_250dp"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivSonFlag"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/button_disassemble"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/flagTime"
+                        android:layout_alignParentRight="true"
+                        android:textSize="@dimen/dimen_12sp"
+                        android:textColor="@color/color_333333"
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+
+
+</RelativeLayout>
