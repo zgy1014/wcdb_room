@@ -280,7 +280,6 @@ public class UICreateSonFlagDialog extends DialogHelper {
             modelInfo.updateFlag = true;
             modelInfo.subId = subIds;
             BusProvider.getBus().post(modelInfo);
-
         }
     }
 
