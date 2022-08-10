@@ -49,7 +49,6 @@ class FlagDetailActivity : BaseActivity(), View.OnClickListener {
                     showSonFlagList()
                 }
             })
-
     }
 
 
