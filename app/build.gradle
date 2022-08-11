@@ -92,16 +92,16 @@ android {
 dependencies {
     def room_version = "2.3.0"
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-
-
     // wcdb数据库和room数据库组合使用
     implementation 'com.tencent.wcdb:wcdb-android:1.0.8'
     implementation 'com.tencent.wcdb:room:1.0.8'
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
 
 
     implementation "cn.bingoogolapple:bga-baseadapter:2.0.0@aar"
